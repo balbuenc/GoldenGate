@@ -43,11 +43,11 @@ namespace GoldenGateAPI
             // configure DI for application services
             
             //var sqlConnectionConfiguration = new SqlConfiguration(Configuration.GetConnectionString("ERPConnection"));
-            var sqlConnectionConfiguration = new SqlConfiguration(Configuration.GetConnectionString("WebConnectionString"));
+            var sqlConnectionConfiguration = new SqlConfiguration(Configuration.GetConnectionString("LugaroConnectionString"));
             services.AddSingleton(sqlConnectionConfiguration);
 
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IOraFracctionRepository, OraFracctionRepository>();
+            services.AddScoped<ILugaroRepository, LugaroRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
