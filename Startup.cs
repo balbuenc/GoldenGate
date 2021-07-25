@@ -43,7 +43,7 @@ namespace GoldenGateAPI
             // configure DI for application services
             
             //var sqlConnectionConfiguration = new SqlConfiguration(Configuration.GetConnectionString("ERPConnection"));
-            var sqlConnectionConfiguration = new SqlConfiguration(Configuration.GetConnectionString("LugaroConnectionString"));
+            var sqlConnectionConfiguration = new SqlConfiguration(Configuration.GetConnectionString("ERPConnection"));
             services.AddSingleton(sqlConnectionConfiguration);
 
             services.AddScoped<IUserService, UserService>();
