@@ -14,7 +14,7 @@ namespace GoldenGateAPI.Controllers
     [ApiController]
     public class LugaroController : ControllerBase
     {
-        private readonly ILogger<FraccionesController> _logger;
+        private readonly ILogger _logger;
         private readonly IConfiguration _config;
 
         //Database ORMs
@@ -22,7 +22,7 @@ namespace GoldenGateAPI.Controllers
 
         private readonly ILugaroRepository _LugaroRepository;
 
-        public LugaroController(ILugaroRepository lugaroRepository, ILogger<FraccionesController> logger, IConfiguration config)
+        public LugaroController(ILugaroRepository lugaroRepository, ILogger<LugaroController> logger, IConfiguration config)
         {
             _logger = logger;
             _config = config;

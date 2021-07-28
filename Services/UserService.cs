@@ -23,22 +23,27 @@ namespace GoldenGateAPI.Services
     {
 
         private readonly IConfiguration _config;
+        private readonly ILogger _logger;
+
+       
 
 
         private List<User> _users = new List<User>();
 
         public readonly bool IsConnected = false;
 
-        public UserService(IConfiguration config)
+        public UserService(IConfiguration config, ILogger<UserService> logger)
         {
             _config = config;
+            _logger = logger;
+           
 
             string postgresConnectionString = config.GetConnectionString("PostgresConnectionString");
             string query = @"SELECT id, username, passhash, firstname, lastname FROM secure.identity";
 
             try
             {
-
+                _logger.LogInformation("Entering User Services - Obtaining USERS DATA");
 
                 PostgreSQL identityDB = new PostgreSQL();
 
@@ -53,6 +58,8 @@ namespace GoldenGateAPI.Services
                 _users = Tools.ConvertDataTable<User>(dt);
 
                 identityDB.connection.Close();
+
+                _logger.LogInformation("Entering User Services -  USERS DATA - OK");
 
             }
             catch (Exception ex)
