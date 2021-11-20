@@ -33,6 +33,13 @@ namespace GoldenGateAPI
             services.AddCors();
             services.AddControllers();
 
+            services.AddHsts(options =>
+            {
+                options.Preload = true;
+                options.IncludeSubDomains = true;
+                options.MaxAge = TimeSpan.FromDays(365);
+            });
+
             // configure basic authentication 
             services.AddAuthentication("BasicAuthentication")
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
@@ -48,6 +55,8 @@ namespace GoldenGateAPI
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ILugaroRepository, LugaroRepository>();
             services.AddScoped<IGoRepository, GoRepository>();
+            services.AddScoped<IGoRequestRepository, GoRequestRepository>();
+            services.AddScoped<IGoInvoiceRepository, GoInvoiceRepository>();
 
             services.AddLogging();
         }
@@ -59,8 +68,14 @@ namespace GoldenGateAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHsts();
+            }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseCookiePolicy();
 
             app.UseRouting();
 
